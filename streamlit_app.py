@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # --- ✅ Fix: Set Page Config as the first command ---
-st.set_page_config(page_title="Select Your Plan", layout="wide")
+st.set_page_config(page_title="Vyberte si svůj plán", layout="wide")
 
 # --- Custom Styling for a Tech-Like UI ---
 st.markdown("""
@@ -52,13 +52,13 @@ st.markdown(f"""
                 align-items: center; background-color: #F5F5F5; 
                 padding: 10px 20px; border-radius: 5px; margin-bottom: 20px;">
         <span style="font-size: 16px; font-weight: bold; color: black;">
-            {days_left} days left in free trial
+            {days_left} dní zbývá ve zkušební verzi
         </span>
         <a href='https://www.deepscout.ai/pricing' target='_blank' 
            style='background-color: #0073e6; color: white; padding: 8px 16px; 
                   font-size: 14px; font-weight: bold; text-decoration: none; 
                   border-radius: 5px; display: inline-block;'>
-            Upgrade Now
+            Upgradovat nyní
         </a>
     </div>
 """, unsafe_allow_html=True)
@@ -66,13 +66,13 @@ st.markdown(f"""
 st.write("")
 
 # --- Plan Selection Heading & Subtext ---
-st.markdown("<h3 style='text-align: center;'>Select Your Plan</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center;'>Our pricing is based on actual use of DeepScout. Select your desired frequency of monitoring and start today!</p>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center;'>Vyberte si svůj plán</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>Naše ceny jsou založeny na skutečném využití DeepScout. Vyberte si požadovanou frekvenci monitorování a začněte ještě dnes!</p>", unsafe_allow_html=True)
 st.write("")
 
 # --- Monitoring Frequency Selection (No Space Between Label & Select Box) ---
-st.markdown("<p style='font-size:18px; font-weight:bold; margin-bottom: 0;'>Monitoring Frequency</p>", unsafe_allow_html=True)
-frequency_options = {"Daily": 30, "Twice Weekly": 8, "Weekly": 4, "Bi-Weekly": 2, "Monthly": 1}
+st.markdown("<p style='font-size:18px; font-weight:bold; margin-bottom: 0;'>Frekvence monitorování</p>", unsafe_allow_html=True)
+frequency_options = {"Denně": 30, "Dvakrát týdně": 8, "Týdně": 4, "Dvakrát měsíčně": 2, "Měsíčně": 1}
 selected_frequency = st.selectbox("", list(frequency_options.keys()), index=2, key="monitoring_freq", label_visibility="collapsed")
 
 # --- Data Setup ---
@@ -89,10 +89,10 @@ df = pd.DataFrame(websites)
 frequency_multiplier = frequency_options[selected_frequency]
 
 # Apply calculations
-df["Total Price"] = df["fixed_fee"] + df["data_updates"] * frequency_multiplier
+df["Celková cena"] = df["fixed_fee"] + df["data_updates"] * frequency_multiplier
 
 # Format Prices
-df["Total Price"] = df["Total Price"].astype(int).astype(str) + " Kč"
+df["Celková cena"] = df["Celková cena"].astype(int).astype(str) + " Kč"
 df["fixed_fee"] = df["fixed_fee"].astype(str) + " Kč"
 
 # Add currency only to the first number in "data_updates"
@@ -101,11 +101,11 @@ df["data_updates"] = df["data_updates"].astype(str) + f" Kč × {frequency_multi
 # **Fix: Correct Totals Row**
 total_fixed_fee = sum([w["fixed_fee"] for w in websites])  # Sum of all fixed fees
 total_data_updates_raw = sum([w["data_updates"] for w in websites])  # Sum of raw data updates
-total_price = sum([int(price.split()[0]) for price in df["Total Price"]])  # Sum of total prices
+total_price = sum([int(price.split()[0]) for price in df["Celková cena"]])  # Sum of total prices
 
 # **Ensure "TOTAL" row has correct values**
 df.loc[len(df)] = [
-    "TOTAL",  
+    "CELKEM",  
     f"{total_fixed_fee} Kč",
     f"{total_data_updates_raw} Kč × {frequency_multiplier}",
     f"{total_price} Kč"
@@ -123,7 +123,7 @@ st.markdown("""
            style='background-color: #0073e6; color: white; padding: 12px 24px; 
                   font-size: 16px; font-weight: bold; text-decoration: none; 
                   border-radius: 5px; display: inline-block;'>
-            Upgrade Now
+            Upgradovat nyní
         </a>
     </div>
 """, unsafe_allow_html=True)
@@ -131,17 +131,17 @@ st.markdown("""
 # --- Professional Disclaimer ---
 st.markdown("""
     <p class='disclaimer' style='font-size: 13px; text-align: center; color: grey;'>
-        Price estimates are based on website sizes from our initial monitoring. 
-        As the websites change over time, these numbers will also change slightly.
-        We’ll always ensure your pricing remains transparent and fair. 
-        You can find detailed information about our pricing on 
-        <a href='https://www.deepscout.ai/pricing' target='_blank'>our website</a>.
+        Ceny jsou odhadovány na základě velikosti webů z našeho prvního monitorování. 
+        Jak se weby v průběhu času mění, mohou se mírně změnit i tyto částky.
+        Vždy zajistíme, aby vaše ceny byly transparentní a spravedlivé. 
+        Podrobné informace o cenách naleznete na 
+        <a href='https://www.deepscout.ai/pricing' target='_blank'>našem webu</a>.
     </p>
 """, unsafe_allow_html=True)
 
 st.markdown("""
     <p class='disclaimer' style='font-size: 13px; text-align: center; color: grey;'>
-        * Some websites may have higher monitoring costs due to their structure 
-        or anti-scraping measures.
+        * Některé weby mohou mít vyšší náklady na monitorování kvůli své struktuře 
+        nebo opatřením proti scrapingu.
     </p>
 """, unsafe_allow_html=True)
