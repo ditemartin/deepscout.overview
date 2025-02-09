@@ -23,15 +23,10 @@ st.markdown("""
             color: grey;
             cursor: pointer;
             padding: 8px 15px;
+            transition: color 0.3s;
         }
-        .plan-button-selected {
-            background: none;
-            border: none;
-            font-size: 22px;
-            font-weight: bold;
-            color: black;
-            cursor: pointer;
-            padding: 8px 15px;
+        .plan-button:hover, .plan-button-selected {
+            color: green !important;
         }
         .divider {
             font-size: 22px;
@@ -68,18 +63,38 @@ st.markdown("<div class='plan-selection'>Select Your Plan</div>", unsafe_allow_h
 if "plan" not in st.session_state:
     st.session_state["plan"] = "monthly"
 
-# Center-aligned buttons
+# Center-aligned buttons with green selection and hover effect
 col1, col2, col3, col4, col5 = st.columns([2, 2, 0.5, 2, 2])  
 with col2:
-    if st.button("Monthly", key="monthly", help="Click to select Monthly plan",
-                 use_container_width=True):
+    if st.button("Monthly", key="monthly", help="Click to select Monthly plan", use_container_width=True):
         st.session_state["plan"] = "monthly"
 with col3:
     st.markdown("<p class='divider'>/</p>", unsafe_allow_html=True)
 with col4:
-    if st.button("Annual (-20%)", key="annual", help="Click to select Annual plan",
-                 use_container_width=True):
+    if st.button("Annual (-20%)", key="annual", help="Click to select Annual plan", use_container_width=True):
         st.session_state["plan"] = "annual"
+
+# Apply styling to selected button (Green highlight)
+st.markdown(f"""
+    <style>
+        [data-testid="stButton"] button {{
+            background: none !important;
+            border: none !important;
+            font-size: 22px !important;
+            font-weight: normal !important;
+            color: grey !important;
+            padding: 8px 15px !important;
+            transition: color 0.3s;
+        }}
+        [data-testid="stButton"]:nth-child({2 if st.session_state["plan"] == "monthly" else 4}) button {{
+            font-weight: bold !important;
+            color: green !important;
+        }}
+        [data-testid="stButton"] button:hover {{
+            color: green !important;
+        }}
+    </style>
+""", unsafe_allow_html=True)
 
 st.write("")
 
@@ -105,32 +120,35 @@ df = pd.DataFrame(websites)
 
 # Apply frequency multiplier
 frequency_multiplier = frequency_options[selected_frequency]
-df["Total Price"] = df["fixed_fee"] + df["data_updates"] * frequency_multiplier
 
 # Apply annual discount if selected
-if st.session_state["plan"] == "annual":
-    df["Total Price"] *= 0.8
+discount_multiplier = 0.8 if st.session_state["plan"] == "annual" else 1.0
+
+# Update "Data Updates" values
+df["data_updates"] = df["data_updates"] * discount_multiplier  # Apply discount to data updates
+df["Total Price"] = (df["fixed_fee"] + df["data_updates"] * frequency_multiplier) * discount_multiplier  # Apply discount to total price
 
 # Format Prices
 df["Total Price"] = df["Total Price"].astype(int).astype(str) + " Kč"
 df["fixed_fee"] = df["fixed_fee"].astype(str) + " Kč"
 
 # Add currency only to the first number in "data_updates"
-df["data_updates"] = df["data_updates"].astype(str) + f" Kč × {frequency_multiplier}"
+df["data_updates"] = df["data_updates"].astype(int).astype(str) + f" Kč × {frequency_multiplier}"
 
 # **Fix: Correct Totals Row**
 total_fixed_fee = sum([150 for _ in range(len(df))])  # Sum of all fixed fees
-total_data_updates_raw = sum([w["data_updates"] for w in websites])  # Sum of raw data updates
+total_data_updates_raw = sum([w["data_updates"] for w in websites]) * discount_multiplier  # Sum of raw data updates with discount
 total_price = sum([int(price.split()[0]) for price in df["Total Price"]])  # Sum of total prices
 
 # 🔥 **Fix the error by ensuring "TOTAL" row has the correct number of columns**
 df.loc[len(df)] = [
     "TOTAL",  # Placeholder for "website" column
     f"{total_fixed_fee} Kč",  # Sum of all fixed fees
-    f"{total_data_updates_raw} Kč × {frequency_multiplier}",  # Sum of raw data updates before multiplication
+    f"{int(total_data_updates_raw)} Kč × {frequency_multiplier}",  # Sum of raw data updates before multiplication
     f"{total_price} Kč"  # Sum of all total prices
 ]
 
 # --- Display Table ---
 st.write("")
 st.write(df.to_html(index=False, escape=False), unsafe_allow_html=True)
+
