@@ -193,7 +193,7 @@ st.markdown("""
 # --- Professional Disclaimer ---
 st.markdown("""
     <p class='disclaimer' style='font-size: 13px; text-align: center; color: grey;'>
-        * Price estimates are based on website sizes from our initial monitoring. 
+        Price estimates are based on website sizes from our initial monitoring. 
         As the websites change over time, these numbers will also change slightly.
         We’ll always ensure your pricing remains transparent and fair. 
         You can find detailed information about our pricing on 
@@ -203,8 +203,8 @@ st.markdown("""
 
 st.markdown("""
     <p class='disclaimer' style='font-size: 13px; text-align: center; color: grey;'>
-        ** Some selected websites may have higher monitoring costs due to their structure 
-        or anti-scraping measures. **
+        * Some websites may have higher monitoring costs due to their structure 
+        or anti-scraping measures.
     </p>
 """, unsafe_allow_html=True)
 
