@@ -164,10 +164,8 @@ st.markdown("""
     <p class='disclaimer'>
         * Price estimates are based on website sizes from our initial monitoring. 
         As the websites change over time, these numbers will also change.
-        We’ll always ensure your pricing remains transparent and fair.
-        <br><br>
-        You can find all information about our pricing on our website: 
-        <a href='https://www.deepscout.ai/pricing' target='_blank'>www.deepscout.ai/pricing</a>
+        We’ll always ensure your pricing remains transparent and fair. 
+        You can find detailed information about our pricing on <a href='https://www.deepscout.ai/pricing' target='_blank'>our website</a>
     </p>
 """, unsafe_allow_html=True)
 
