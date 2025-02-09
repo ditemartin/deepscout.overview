@@ -62,7 +62,12 @@ st.markdown(f"""
     </div>
 """, unsafe_allow_html=True)
 
+# --- Plan Selection Heading & Subtext ---
+st.markdown("<p class='plan-selection'>Select Your Plan</p>", unsafe_allow_html=True)
+st.markdown("<p class='plan-subtext'>Our pricing is based on actual use of DeepScout. Select your desired frequency of monitoring and start today!</p>", unsafe_allow_html=True)
+
 # --- Monitoring Frequency Selection (No Space Between Label & Select Box) ---
+st.write("")
 st.markdown("<p style='font-size:18px; font-weight:bold; margin-bottom: 0;'>Monitoring Frequency</p>", unsafe_allow_html=True)
 frequency_options = {"Daily": 30, "Twice Weekly": 8, "Weekly": 4, "Bi-Weekly": 2, "Monthly": 1}
 selected_frequency = st.selectbox("", list(frequency_options.keys()), index=2, key="monitoring_freq", label_visibility="collapsed")
