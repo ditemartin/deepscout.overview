@@ -7,33 +7,27 @@ st.set_page_config(page_title="Select Your Plan", layout="wide")
 # --- Custom Styling for a Tech-Like UI ---
 st.markdown("""
     <style>
-        /* General container styling */
-        .block-container {
-            max-width: 800px;
-            margin: auto;
-        }
-        /* Plan selection styling */
+        /* Center the plan selection text */
         .plan-selection {
             text-align: center;
             font-size: 24px;
             font-weight: bold;
         }
-        .selected-plan {
+        /* Styling for plan selection (clickable text) */
+        .plan-option {
             display: inline-block;
-            padding: 6px 15px;
-            font-size: 18px;
-            font-weight: bold;
-            color: white;
-            background-color: black;
-            border-radius: 8px;
-            margin-right: 10px;
-        }
-        .unselected-plan {
-            display: inline-block;
-            font-size: 18px;
+            padding: 8px 15px;
+            font-size: 20px;
             font-weight: bold;
             color: grey;
             cursor: pointer;
+            margin: 0 5px;
+        }
+        .selected-plan {
+            color: white;
+            background-color: black;
+            border-radius: 8px;
+            padding: 8px 15px;
         }
         /* Monitoring Frequency Dropdown */
         .monitoring-container {
@@ -69,23 +63,23 @@ st.markdown("""
 # --- Plan Selection (Monthly / Annual) ---
 st.markdown("<div class='plan-selection'>Select Your Plan</div>", unsafe_allow_html=True)
 
-col1, col2 = st.columns([0.2, 0.2])
-with col1:
-    if st.button("Monthly", key="monthly_plan"):
-        st.session_state["plan"] = "monthly"
-with col2:
-    if st.button("Annual (-20%)", key="annual_plan"):
-        st.session_state["plan"] = "annual"
-
-# Default plan selection if not already set
+# Initialize session state if not set
 if "plan" not in st.session_state:
     st.session_state["plan"] = "monthly"
 
-# Highlight selected plan
-if st.session_state["plan"] == "monthly":
-    st.markdown("<span class='selected-plan'>Monthly</span> / <span class='unselected-plan'>Annual (-20%)</span>", unsafe_allow_html=True)
-else:
-    st.markdown("<span class='unselected-plan'>Monthly</span> / <span class='selected-plan'>Annual (-20%)</span>", unsafe_allow_html=True)
+# Display plan selection as clickable text
+col1, col2, col3 = st.columns([1.5, 2, 1.5])  # Center alignment
+with col2:
+    monthly_class = "selected-plan" if st.session_state["plan"] == "monthly" else "plan-option"
+    annual_class = "selected-plan" if st.session_state["plan"] == "annual" else "plan-option"
+
+    # Clickable text elements
+    if st.markdown(f"<span class='{monthly_class}'>Monthly</span> / <span class='{annual_class}'>Annual (-20%)</span>", 
+                   unsafe_allow_html=True):
+        if st.session_state["plan"] == "annual":
+            st.session_state["plan"] = "monthly"
+        else:
+            st.session_state["plan"] = "annual"
 
 st.write("")
 
