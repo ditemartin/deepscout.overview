@@ -18,7 +18,7 @@ st.markdown("""
         .plan-button {
             background: none;
             border: none;
-            font-size: 60px;
+            font-size: 22px;
             font-weight: normal;
             color: grey;
             cursor: pointer;
@@ -36,7 +36,6 @@ st.markdown("""
         .divider {
             font-size: 22px;
             font-weight: bold;
-            color: black;
             padding: 0 10px;
         }
         /* Table Styling */
@@ -103,10 +102,10 @@ st.markdown(f"""
 st.write("")
 
 # --- Monitoring Frequency Selection (in one row) ---
-col_freq1, col_freq2, col_freq3 = st.columns([1, 0.3, 2])
+col_freq1, col_freq2 = st.columns([1, 2])
 with col_freq1:
     st.markdown("<p style='font-size:18px; font-weight:bold;'>Monitoring Frequency</p>", unsafe_allow_html=True)
-with col_freq3:
+with col_freq2:
     frequency_options = {"Daily": 30, "Twice Weekly": 8, "Weekly": 4, "Bi-Weekly": 2, "Monthly": 1}
     selected_frequency = st.selectbox("", list(frequency_options.keys()), index=2, key="monitoring_freq")
 
@@ -133,15 +132,21 @@ if st.session_state["plan"] == "annual":
 # Format Prices
 df["Total Price"] = df["Total Price"].astype(int).astype(str) + " Kč"
 df["fixed_fee"] = df["fixed_fee"].astype(str) + " Kč"
-df["data_updates"] = df["data_updates"].astype(str) + f" × {frequency_multiplier}"
 
-# Sum Totals
-total_fixed_fee = sum([150 for _ in range(len(df))])
-total_data_updates = sum([w["data_updates"] for w in websites]) * frequency_multiplier
-total_price = sum([int(price.split()[0]) for price in df["Total Price"]])
+# Add currency only to the first number in "data_updates"
+df["data_updates"] = df["data_updates"].astype(str) + f" Kč × {frequency_multiplier}"
 
-# Add TOTAL row
-df.loc[len(df)] = ["TOTAL", f"{total_price} Kč", f"{total_fixed_fee} Kč", f"{total_data_updates} × {frequency_multiplier}"]
+# **Calculate Totals Correctly**
+total_fixed_fee = sum([150 for _ in range(len(df))])  # Sum of all fixed fees
+total_data_updates_raw = sum([w["data_updates"] for w in websites])  # Sum of raw data updates
+total_price = sum([int(price.split()[0]) for price in df["Total Price"]])  # Sum of total prices
+
+# Add TOTAL row with correct formatting
+df.loc[len(df)] = [
+    f"{total_fixed_fee} Kč",  # Sum of all fixed fees
+    f"{total_data_updates_raw} Kč × {frequency_multiplier}",  # Sum of raw data updates before multiplication
+    f"{total_price} Kč"  # Sum of all total prices
+]
 
 # --- Display Table ---
 st.write("")
