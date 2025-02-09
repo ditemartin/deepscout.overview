@@ -61,6 +61,25 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+# --- Header: Free Trial Countdown + Upgrade Button ---
+days_left = 7  # Set dynamically if needed
+
+st.markdown(f"""
+    <div style="display: flex; justify-content: space-between; 
+                align-items: center; background-color: #F5F5F5; 
+                padding: 10px 20px; border-radius: 5px; margin-bottom: 20px;">
+        <span style="font-size: 16px; font-weight: bold; color: black;">
+            {days_left} days left in free trial
+        </span>
+        <a href='https://www.deepscout.ai/pricing' target='_blank' 
+           style='background-color: #0073e6; color: white; padding: 8px 16px; 
+                  font-size: 14px; font-weight: bold; text-decoration: none; 
+                  border-radius: 5px; display: inline-block;'>
+            Upgrade Now
+        </a>
+    </div>
+""", unsafe_allow_html=True)
+
 # --- Plan Selection (Monthly / Annual) ---
 st.markdown("<div class='plan-selection'>Select Your Plan</div>", unsafe_allow_html=True)
 
