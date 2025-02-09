@@ -6,60 +6,7 @@ st.set_page_config(page_title="Select Your Plan", layout="wide")
 
 # --- Custom Styling for a Tech-Like UI ---
 st.markdown("""
-    <style>
-        /* Center the plan selection */
-        .plan-selection {
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        /* Styling for plan selection buttons */
-        .plan-button {
-            background: none;
-            border: none;
-            font-size: 60px;
-            font-weight: normal;
-            color: grey;
-            cursor: pointer;
-            padding: 8px 15px;
-        }
-        .plan-button-selected {
-            background: none;
-            border: none;
-            font-size: 22px;
-            font-weight: bold;
-            color: black;
-            cursor: pointer;
-            padding: 8px 15px;
-        }
-        .divider {
-            font-size: 22px;
-            font-weight: bold;
-            color: black;
-            padding: 0 10px;
-        }
-        /* Table Styling */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-            font-size: 18px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        th {
-            padding: 10px
-        }
-        td {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-        /* Make total row bold */
-        tr:last-child td {
-            font-weight: bold;
-        }
-    </style>
+
 """, unsafe_allow_html=True)
 
 # --- Plan Selection (Monthly / Annual) ---
