@@ -53,6 +53,11 @@ st.markdown("""
         tr:last-child td {
             font-weight: bold;
         }
+        /* Green discount text */
+        .discount {
+            color: green;
+            font-weight: bold;
+        }
     </style>
 """, unsafe_allow_html=True)
 
@@ -124,31 +129,31 @@ frequency_multiplier = frequency_options[selected_frequency]
 # Apply annual discount if selected
 discount_multiplier = 0.8 if st.session_state["plan"] == "annual" else 1.0
 
-# Update "Data Updates" values
-df["data_updates"] = df["data_updates"] * discount_multiplier  # Apply discount to data updates
-df["Total Price"] = (df["fixed_fee"] + df["data_updates"] * frequency_multiplier) * discount_multiplier  # Apply discount to total price
+# Apply discounts to all relevant fields
+df["fixed_fee"] = df["fixed_fee"] * discount_multiplier  # Discount on fixed fees
+df["data_updates"] = df["data_updates"] * discount_multiplier  # Discount on data updates
+df["Total Price"] = (df["fixed_fee"] + df["data_updates"] * frequency_multiplier)  # Discount applied
 
 # Format Prices
 df["Total Price"] = df["Total Price"].astype(int).astype(str) + " Kč"
-df["fixed_fee"] = df["fixed_fee"].astype(str) + " Kč"
+df["fixed_fee"] = df["fixed_fee"].astype(int).astype(str) + " Kč"
 
 # Add currency only to the first number in "data_updates"
 df["data_updates"] = df["data_updates"].astype(int).astype(str) + f" Kč × {frequency_multiplier}"
 
 # **Fix: Correct Totals Row**
-total_fixed_fee = sum([150 for _ in range(len(df))])  # Sum of all fixed fees
-total_data_updates_raw = sum([w["data_updates"] for w in websites]) * discount_multiplier  # Sum of raw data updates with discount
+total_fixed_fee = sum([w["fixed_fee"] for w in websites]) * discount_multiplier  # Sum of all fixed fees
+total_data_updates_raw = sum([w["data_updates"] for w in websites]) * discount_multiplier  # Sum of raw data updates
 total_price = sum([int(price.split()[0]) for price in df["Total Price"]])  # Sum of total prices
 
-# 🔥 **Fix the error by ensuring "TOTAL" row has the correct number of columns**
+# 🔥 **Ensure "TOTAL" row has correct values & discount label**
 df.loc[len(df)] = [
-    "TOTAL",  # Placeholder for "website" column
-    f"{total_fixed_fee} Kč",  # Sum of all fixed fees
-    f"{int(total_data_updates_raw)} Kč × {frequency_multiplier}",  # Sum of raw data updates before multiplication
-    f"{total_price} Kč"  # Sum of all total prices
+    "TOTAL",  
+    f"{int(total_fixed_fee)} Kč <span class='discount'>(-20%)</span>" if discount_multiplier < 1 else f"{int(total_fixed_fee)} Kč",
+    f"{int(total_data_updates_raw)} Kč × {frequency_multiplier} <span class='discount'>(-20%)</span>" if discount_multiplier < 1 else f"{int(total_data_updates_raw)} Kč × {frequency_multiplier}",
+    f"{total_price} Kč <span class='discount'>(-20%)</span>" if discount_multiplier < 1 else f"{total_price} Kč"
 ]
 
 # --- Display Table ---
 st.write("")
 st.write(df.to_html(index=False, escape=False), unsafe_allow_html=True)
-
