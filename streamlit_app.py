@@ -157,3 +157,13 @@ df.loc[len(df)] = [
 # --- Display Table ---
 st.write("")
 st.write(df.to_html(index=False, escape=False), unsafe_allow_html=True)
+
+
+# --- Professional Disclaimer ---
+st.markdown("""
+    <p class='disclaimer'>
+        Prices are based on website sizes from our initial monitoring. 
+        As your site grows and changes, these numbers may adjust slightly over time. 
+        We’ll always ensure your pricing remains transparent and fair.
+    </p>
+""", unsafe_allow_html=True)
