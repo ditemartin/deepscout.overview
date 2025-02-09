@@ -67,7 +67,7 @@ st.write("")
 
 # --- Plan Selection Heading & Subtext ---
 st.markdown("<h3 style='text-align: center;'>Select Your Plan</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: grey;'>Our pricing is based on actual use of DeepScout. Select your desired frequency of monitoring and start today!</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>Our pricing is based on actual use of DeepScout. Select your desired frequency of monitoring and start today!</p>", unsafe_allow_html=True)
 st.write("")
 
 # --- Monitoring Frequency Selection (No Space Between Label & Select Box) ---
