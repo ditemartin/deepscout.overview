@@ -18,7 +18,7 @@ st.markdown("""
         .plan-button {
             background: none;
             border: none;
-            font-size: 22px;
+            font-size: 60px;
             font-weight: normal;
             color: grey;
             cursor: pointer;
@@ -49,9 +49,7 @@ st.markdown("""
             overflow: hidden;
         }
         th {
-            padding: 10px;
-            text-align: left;
-            font-weight: bold;
+            padding: 10px
         }
         td {
             padding: 10px;
