@@ -48,7 +48,7 @@ st.markdown("""
             overflow: hidden;
         }
         th {
-            padding: 10px
+            padding: 10px;
         }
         td {
             padding: 10px;
@@ -136,13 +136,14 @@ df["fixed_fee"] = df["fixed_fee"].astype(str) + " Kč"
 # Add currency only to the first number in "data_updates"
 df["data_updates"] = df["data_updates"].astype(str) + f" Kč × {frequency_multiplier}"
 
-# **Calculate Totals Correctly**
+# **Fix: Correct Totals Row**
 total_fixed_fee = sum([150 for _ in range(len(df))])  # Sum of all fixed fees
 total_data_updates_raw = sum([w["data_updates"] for w in websites])  # Sum of raw data updates
 total_price = sum([int(price.split()[0]) for price in df["Total Price"]])  # Sum of total prices
 
-# Add TOTAL row with correct formatting
+# 🔥 **Fix the error by ensuring "TOTAL" row has the correct number of columns**
 df.loc[len(df)] = [
+    "TOTAL",  # Placeholder for "website" column
     f"{total_fixed_fee} Kč",  # Sum of all fixed fees
     f"{total_data_updates_raw} Kč × {frequency_multiplier}",  # Sum of raw data updates before multiplication
     f"{total_price} Kč"  # Sum of all total prices
