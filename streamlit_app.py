@@ -125,7 +125,7 @@ st.write("")
 # --- Monitoring Frequency Selection (in one row) ---
 col_freq1, col_freq2 = st.columns([1, 2])
 with col_freq1:
-    st.markdown("<p style='font-size:30px; font-weight:bold;'>Monitoring Frequency</p>", unsafe_allow_html=True)
+    st.markdown("<p style='font-size:18px; font-weight:bold;'>Monitoring Frequency</p>", unsafe_allow_html=True)
 with col_freq2:
     frequency_options = {"Daily": 30, "Twice Weekly": 8, "Weekly": 4, "Bi-Weekly": 2, "Monthly": 1}
     selected_frequency = st.selectbox("", list(frequency_options.keys()), index=2, key="monitoring_freq")
@@ -198,6 +198,13 @@ st.markdown("""
         We’ll always ensure your pricing remains transparent and fair. 
         You can find detailed information about our pricing on 
         <a href='https://www.deepscout.ai/pricing' target='_blank'>our website</a>.
+    </p>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+    <p class='disclaimer' style='font-size: 13px; text-align: center; color: grey;'>
+        ** Some selected websites may have higher monitoring costs due to their structure 
+        or anti-scraping measures. **
     </p>
 """, unsafe_allow_html=True)
 
