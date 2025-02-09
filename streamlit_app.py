@@ -52,13 +52,13 @@ st.markdown(f"""
                 align-items: center; background-color: #F5F5F5; 
                 padding: 10px 20px; border-radius: 5px; margin-bottom: 20px;">
         <span style="font-size: 16px; font-weight: bold; color: black;">
-            {days_left} dní zbývá ve zkušební verzi
+            Ve zkušební verzi zbývá {days_left} dní
         </span>
         <a href='https://www.deepscout.ai/pricing' target='_blank' 
            style='background-color: #0073e6; color: white; padding: 8px 16px; 
                   font-size: 14px; font-weight: bold; text-decoration: none; 
                   border-radius: 5px; display: inline-block;'>
-            Upgradovat nyní
+            Chci pokračovat
         </a>
     </div>
 """, unsafe_allow_html=True)
@@ -66,7 +66,7 @@ st.markdown(f"""
 st.write("")
 
 # --- Plan Selection Heading & Subtext ---
-st.markdown("<h3 style='text-align: center;'>Vyberte si svůj plán</h1>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center;'>Vyberte si svůj plán</h3>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center;'>Naše ceny jsou založeny na skutečném využití DeepScout. Vyberte si požadovanou frekvenci monitorování a začněte ještě dnes!</p>", unsafe_allow_html=True)
 st.write("")
 
@@ -77,9 +77,9 @@ selected_frequency = st.selectbox("", list(frequency_options.keys()), index=2, k
 
 # --- Data Setup ---
 websites = [
-    {"website": "bonami.cz", "fixed_fee": 150, "data_updates": 608},
-    {"website": "helveti.cz", "fixed_fee": 150, "data_updates": 120},
-    {"website": "biano.cz", "fixed_fee": 150, "data_updates": 5}
+    {"Web": "bonami.cz", "Fixní platba": 150, "Monitoring webu": 608},
+    {"Web": "helveti.cz", "Fixní platba": 150, "Monitoring webu": 120},
+    {"Web": "biano.cz", "Fixní platba": 150, "Monitoring webu": 5}
 ]
 
 # Convert to DataFrame
@@ -89,19 +89,19 @@ df = pd.DataFrame(websites)
 frequency_multiplier = frequency_options[selected_frequency]
 
 # Apply calculations
-df["Celková cena"] = df["fixed_fee"] + df["data_updates"] * frequency_multiplier
+df["Odhadovaná měsíční cena"] = df["Fixní platba"] + df["Monitoring webu"] * frequency_multiplier
 
 # Format Prices
-df["Celková cena"] = df["Celková cena"].astype(int).astype(str) + " Kč"
-df["fixed_fee"] = df["fixed_fee"].astype(str) + " Kč"
+df["Odhadovaná měsíční cena"] = df["Odhadovaná měsíční cena"].astype(int).astype(str) + " Kč"
+df["Fixní platba"] = df["Fixní platba"].astype(str) + " Kč"
 
-# Add currency only to the first number in "data_updates"
-df["data_updates"] = df["data_updates"].astype(str) + f" Kč × {frequency_multiplier}"
+# Add currency only to the first number in "Monitoring webu"
+df["Monitoring webu"] = df["Monitoring webu"].astype(str) + f" Kč × {frequency_multiplier}"
 
 # **Fix: Correct Totals Row**
-total_fixed_fee = sum([w["fixed_fee"] for w in websites])  # Sum of all fixed fees
-total_data_updates_raw = sum([w["data_updates"] for w in websites])  # Sum of raw data updates
-total_price = sum([int(price.split()[0]) for price in df["Celková cena"]])  # Sum of total prices
+total_fixed_fee = sum([w["Fixní platba"] for w in websites])  # Sum of all fixed fees
+total_data_updates_raw = sum([w["Monitoring webu"] for w in websites])  # Sum of raw data updates
+total_price = sum([int(price.split()[0]) for price in df["Odhadovaná měsíční cena"]])  # Sum of total prices
 
 # **Ensure "TOTAL" row has correct values**
 df.loc[len(df)] = [
@@ -131,11 +131,11 @@ st.markdown("""
 # --- Professional Disclaimer ---
 st.markdown("""
     <p class='disclaimer' style='font-size: 13px; text-align: center; color: grey;'>
-        Ceny jsou odhadovány na základě velikosti webů z našeho prvního monitorování. 
+        Ceny jsou odhadovány na základě velikosti webů z našeho prvního monitoringu. 
         Jak se weby v průběhu času mění, mohou se mírně změnit i tyto částky.
-        Vždy zajistíme, aby vaše ceny byly transparentní a spravedlivé. 
-        Podrobné informace o cenách naleznete na 
-        <a href='https://www.deepscout.ai/pricing' target='_blank'>našem webu</a>.
+        Vždy se snažíme, aby vaše ceny byly transparentní a spravedlivé. 
+        Detailní informace naleznete na 
+        <a href='https://www.deepscout.ai/pricing' target='_blank'>webu DeepScout</a>.
     </p>
 """, unsafe_allow_html=True)
 
