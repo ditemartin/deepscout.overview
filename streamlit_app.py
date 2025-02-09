@@ -81,24 +81,6 @@ with col4:
                  use_container_width=True):
         st.session_state["plan"] = "annual"
 
-# Apply styling to selected button
-st.markdown(f"""
-    <style>
-        [data-testid="stButton"] button {{
-            background: none !important;
-            border: none !important;
-            font-size: 22px !important;
-            font-weight: normal !important;
-            color: grey !important;
-            padding: 8px 15px !important;
-        }}
-        [data-testid="stButton"]:nth-child({2 if st.session_state["plan"] == "monthly" else 4}) button {{
-            font-weight: bold !important;
-            color: black !important;
-        }}
-    </style>
-""", unsafe_allow_html=True)
-
 st.write("")
 
 # --- Monitoring Frequency Selection (in one row) ---
