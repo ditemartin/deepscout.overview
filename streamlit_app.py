@@ -159,13 +159,28 @@ st.write("")
 st.write(df.to_html(index=False, escape=False), unsafe_allow_html=True)
 st.write("")
 
+# --- Call to Action: Upgrade Now Button ---
+st.markdown("""
+    <div style="text-align: center; margin-bottom: 15px;">
+        <a href='https://www.deepscout.ai/pricing' target='_blank' 
+           style='background-color: #0073e6; color: white; padding: 12px 24px; 
+                  font-size: 16px; font-weight: bold; text-decoration: none; 
+                  border-radius: 5px; display: inline-block;'>
+            Upgrade Now
+        </a>
+    </div>
+""", unsafe_allow_html=True)
+
 # --- Professional Disclaimer ---
 st.markdown("""
-    <p class='disclaimer'>
+    <p class='disclaimer' style='font-size: 13px; text-align: center; color: grey;'>
         * Price estimates are based on website sizes from our initial monitoring. 
-        As the websites change over time, these numbers will also change.
+        As the websites change over time, these numbers will also change slightly.
         We’ll always ensure your pricing remains transparent and fair. 
-        You can find detailed information about our pricing on <a href='https://www.deepscout.ai/pricing' target='_blank'>our website</a>
+        <br><br>
+        You can find detailed information about our pricing on 
+        <a href='https://www.deepscout.ai/pricing' target='_blank'>our website</a>.
     </p>
 """, unsafe_allow_html=True)
+
 
