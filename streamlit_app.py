@@ -31,7 +31,7 @@ st.markdown("""
         }
         /* Monitoring Frequency Dropdown */
         .monitoring-container {
-            background-color: #F5F5F5;
+            background-color: #BBBBBB;
             padding: 10px;
             border-radius: 10px;
             font-size: 18px;
@@ -47,7 +47,7 @@ st.markdown("""
             overflow: hidden;
         }
         th {
-            background-color: #F5F5F5;
+            background-color: #BBBBBB;
             padding: 10px;
             text-align: left;
             font-weight: bold;
