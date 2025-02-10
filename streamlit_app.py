@@ -65,24 +65,33 @@ st.markdown(f"""
 
 st.write("")
 
+
+# --- Plná verze vám umožní ---
+st.markdown("<h3 style='text-align: center;'>Plná verze vám umožní:</h3>", unsafe_allow_html=True)
+
+st.markdown("""
+    <div class="feature-item">
+        <i class="material-icons">dataset</i> Pracujte se všemi daty
+    </div>
+    <div class="feature-item">
+        <i class="material-icons">upload_file</i> Exportujte data
+    </div>
+    <div class="feature-item">
+        <i class="material-icons">group_add</i> Přidávejte a ubírejte konkurenty
+    </div>
+    <div class="feature-item">
+        <i class="material-icons">trending_up</i> Držte si náskok před konkurencí
+    </div>
+""", unsafe_allow_html=True)
+
+st.write("")
+
 # --- Plan Selection Heading & Subtext ---
 st.markdown("<h3 style='text-align: center;'>Zvolte si svůj plán</h3>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center;'>Naše ceny jsou založeny na skutečném využití DeepScout. Vyberte si požadovanou frekvenci monitorování a začněte ještě dnes! Plná verze vám umožní:</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>Naše ceny jsou založeny na skutečném využití DeepScout. Vyberte si požadovanou frekvenci monitorování a začněte ještě dnes!</p>", unsafe_allow_html=True)
 st.write("")
 
-# --- Feature List in 4 Columns ---
-col1, col2, col3, col4 = st.columns(4)
 
-with col1:
-    st.markdown("<div class='feature-box'>✅ Pracujte se všemi daty</div>", unsafe_allow_html=True)
-with col2:
-    st.markdown("<div class='feature-box'>📤 Exportujte data</div>", unsafe_allow_html=True)
-with col3:
-    st.markdown("<div class='feature-box'>➕➖ Přidávejte a ubírejte konkurenty</div>", unsafe_allow_html=True)
-with col4:
-    st.markdown("<div class='feature-box'>🚀 Držte si náskok před konkurencí</div>", unsafe_allow_html=True)
-
-st.write("")
 # --- Monitoring Frequency Selection (No Space Between Label & Select Box) ---
 st.markdown("<p style='font-size:18px; font-weight:bold; margin-bottom: 0;'>Frekvence monitorování</p>", unsafe_allow_html=True)
 frequency_options = {"Denně": 30, "Dvakrát týdně": 8, "Týdně": 4, "Dvakrát měsíčně": 2, "Měsíčně": 1}
