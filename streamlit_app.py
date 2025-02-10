@@ -51,14 +51,14 @@ st.markdown(f"""
     <div style="display: flex; justify-content: space-between; 
                 align-items: center; background-color: #F5F5F5; 
                 padding: 10px 20px; border-radius: 5px; margin-bottom: 20px;">
-        <span style="font-size: 16px; font-weight: bold; color: black;">
+        <span style="font-size: 18px; font-weight: bold; color: black;">
             Ve zkušební verzi zbývá {days_left} dní
         </span>
         <a href='https://www.deepscout.ai/pricing' target='_blank' 
            style='background-color: #0073e6; color: white; padding: 8px 16px; 
-                  font-size: 14px; font-weight: bold; text-decoration: none; 
+                  font-size: 16px; font-weight: bold; text-decoration: none; 
                   border-radius: 5px; display: inline-block;'>
-            Chci pokračovat
+            Aktivovat plnou verzi
         </a>
     </div>
 """, unsafe_allow_html=True)
@@ -66,7 +66,7 @@ st.markdown(f"""
 st.write("")
 
 # --- Plan Selection Heading & Subtext ---
-st.markdown("<h3 style='text-align: center;'>Vyberte si svůj plán</h3>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center;'>Zvolte si svůj plán</h3>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center;'>Naše ceny jsou založeny na skutečném využití DeepScout. Vyberte si požadovanou frekvenci monitorování a začněte ještě dnes!</p>", unsafe_allow_html=True)
 st.write("")
 
@@ -134,8 +134,8 @@ st.markdown("""
         Ceny jsou odhadovány na základě velikosti webů z našeho prvního monitoringu. 
         Jak se weby v průběhu času mění, mohou se mírně změnit i tyto částky.
         Vždy se snažíme, aby vaše ceny byly transparentní a spravedlivé. 
-        Detailní informace naleznete na 
-        <a href='https://www.deepscout.ai/pricing' target='_blank'>webu DeepScout</a>.
+        Detailní informace naleznete na webu 
+        <a href='https://www.deepscout.ai/pricing' target='_blank'>DeepScout</a>.
     </p>
 """, unsafe_allow_html=True)
 
