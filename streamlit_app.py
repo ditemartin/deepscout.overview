@@ -51,7 +51,7 @@ st.markdown(f"""
     <div style="display: flex; justify-content: space-between; 
                 align-items: center; background-color: #F5F5F5; 
                 padding: 10px 20px; border-radius: 5px; margin-bottom: 20px;">
-        <span style="font-size: 18px; font-weight: bold; color: black;">
+        <span style="font-size: 16px; font-weight: bold; color: black;">
             Ve zkušební verzi zbývá {days_left} dní
         </span>
         <a href='https://www.deepscout.ai/pricing' target='_blank' 
