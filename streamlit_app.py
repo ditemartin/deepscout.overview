@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # --- ✅ Fix: Set Page Config as the first command ---
-st.set_page_config(page_title="Vyberte si svůj plán", layout="wide")
+st.set_page_config(page_title="Vyberte si svůj plán")
 
 # --- Custom Styling for a Tech-Like UI ---
 st.markdown("""
@@ -67,7 +67,7 @@ st.write("")
 
 
 # --- Plná verze vám umožní ---
-st.markdown("<h3 style='text-align: center;'>Plná verze vám umožní:</h3>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center;'>Plná verze DeepScout</h3>", unsafe_allow_html=True)
 
 st.markdown("""
     <div class="feature-item">
