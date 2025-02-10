@@ -85,6 +85,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.write("")
+st.write("")
 
 # --- Plan Selection Heading & Subtext ---
 st.markdown("<h3 style='text-align: center;'>Zvolte si svůj plán</h3>", unsafe_allow_html=True)
