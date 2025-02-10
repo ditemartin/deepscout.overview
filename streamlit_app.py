@@ -123,7 +123,7 @@ st.markdown("""
            style='background-color: #0073e6; color: white; padding: 12px 24px; 
                   font-size: 16px; font-weight: bold; text-decoration: none; 
                   border-radius: 5px; display: inline-block;'>
-            Upgradovat nyní
+            Aktivovat plnou verzi
         </a>
     </div>
 """, unsafe_allow_html=True)
